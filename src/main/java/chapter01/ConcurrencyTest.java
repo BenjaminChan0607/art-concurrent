@@ -4,13 +4,15 @@ package chapter01;
  * Created by benjaminChan on 2018/7/31 0031 下午 5:29.
  * <p>
  * Thread.join();
+ *
+ * Java Thread join方法用来暂停当前线程直到join操作上的线程结束。
  */
 public class ConcurrencyTest {
 
     private static final long count = 1000000000L;
 
     public static void main(String[] args) throws InterruptedException {
-        serial();
+//        serial();
         concurrency();
     }
 
@@ -34,9 +36,8 @@ public class ConcurrencyTest {
             b--;
         }
 
-        thread.join();
-        long endTime = System.currentTimeMillis();
-        System.out.println("b:" + b + " duration:" + (endTime - startTime));
+//        thread.join();
+        System.out.println("b:" + b + " duration:" + (System.currentTimeMillis() - startTime));
     }
 
     private static void serial() {
