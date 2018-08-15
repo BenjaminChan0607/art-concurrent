@@ -6,9 +6,9 @@ import java.util.concurrent.CyclicBarrier;
  * @author benjaminChan
  * @date 2018/8/15 0015 下午 1:54
  */
-public class CyclicBarrierTest {
+public class CyclicBarrierTest2 {
 
-    static CyclicBarrier cyclicBarrier = new CyclicBarrier(3);
+    static CyclicBarrier cyclicBarrier = new CyclicBarrier(2,new Test());
 
     public static void main(String[] args) {
         new Thread(
@@ -31,4 +31,12 @@ public class CyclicBarrierTest {
         }
         System.out.println("2");
     }
+
+    public static class Test implements Runnable {
+        @Override
+        public void run() {
+            System.out.println("3");
+        }
+    }
+
 }

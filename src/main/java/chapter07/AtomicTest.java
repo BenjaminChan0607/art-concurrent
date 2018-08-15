@@ -29,6 +29,9 @@ public class AtomicTest {
     }
 
     private static void testAtomicInteger() {
+        System.out.println(atomicInteger.compareAndSet(0, 12));
+        System.out.println(atomicInteger.get());
+
         System.out.println(atomicInteger.getAndIncrement());
         System.out.println(atomicInteger.get());
     }
