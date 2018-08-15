@@ -1,5 +1,7 @@
 package chapter05;
 
+import org.junit.Test;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -18,10 +20,12 @@ public class FairAndUnFairTest {
     private static Lock unfairLock = new ReentrantLock2(false);
     private static CountDownLatch start;
 
+    @Test
     public void fair() {
         testLock(fairLock);
     }
 
+    @Test
     public void unfair() {
         testLock(unfairLock);
     }
@@ -54,7 +58,7 @@ public class FairAndUnFairTest {
             for (int i = 0; i < 2; i++) {
                 lock.lock();
                 try {
-                    System.out.println("locked by " + getName() + ", waiting by " + lock);
+                    System.out.println("locked by " + getName() + ", waiting by " + ((ReentrantLock2) lock).getQueuedThreads());
                 } finally {
                     lock.unlock();
                 }
@@ -68,6 +72,8 @@ public class FairAndUnFairTest {
     }
 
     private static class ReentrantLock2 extends ReentrantLock {
+        private static final long serialVersionUID = -6736727496956351588L;
+
         public ReentrantLock2(boolean fair) {
             super(fair);
         }
