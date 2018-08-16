@@ -29,9 +29,10 @@ public class CountDownLatchTest {
         },"t"){}.start();
 
         long startTime = System.currentTimeMillis();
-        countDownLatch.await(2, TimeUnit.SECONDS);
-        countDownLatch.await();//如果CountDownLatch的构造参数N不为0时，await()方法会阻塞当前线程
+        countDownLatch.await(1, TimeUnit.SECONDS);
+//        countDownLatch.await();//如果CountDownLatch的构造参数N不为0时，await()方法会阻塞当前线程
         System.out.println(System.currentTimeMillis() - startTime);
         System.out.println(3);
     }
+
 }
