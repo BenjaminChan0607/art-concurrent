@@ -6,6 +6,9 @@ import java.util.concurrent.TimeUnit;
 /**
  * @author benjaminChan
  * @date 2018/8/15 0015 上午 11:28
+ *
+ * CountDownLatch允许一个或多个线程等待其他线程完成操作
+ * 如果CountDownLatch的构造参数N不为0时，await()方法会阻塞当前线程
  */
 public class CountDownLatchTest {
 
@@ -16,22 +19,31 @@ public class CountDownLatchTest {
             @Override
             public void run() {
                 try {
-                    TimeUnit.SECONDS.sleep(1);
                     System.out.println(1);
-                    countDownLatch.countDown();
-                    TimeUnit.SECONDS.sleep(3);
-                    System.out.println(2);
+                    TimeUnit.SECONDS.sleep(1);
                     countDownLatch.countDown();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             }
-        },"t"){}.start();
+        },"t1"){}.start();
 
-        long startTime = System.currentTimeMillis();
-        countDownLatch.await(1, TimeUnit.SECONDS);
-//        countDownLatch.await();//如果CountDownLatch的构造参数N不为0时，await()方法会阻塞当前线程
-        System.out.println(System.currentTimeMillis() - startTime);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                System.out.println(2);
+                try {
+                    TimeUnit.SECONDS.sleep(3);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                countDownLatch.countDown();
+            }
+        },"t2").start();
+
+        System.out.println("await before;" + System.currentTimeMillis());
+        countDownLatch.await();
+        System.out.println("await after;" + System.currentTimeMillis());
         System.out.println(3);
     }
 
